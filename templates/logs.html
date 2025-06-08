@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Log Analyzer | IDPS</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .form-control::placeholder {
+            font-style: italic;
+        }
+        .fade-out {
+            opacity: 0.5;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="py-5">
+
+<div class="container">
+    <div class="card p-4 rounded-4 card-shadow bg-white">
+        <h2 class="text-center text-primary mb-4">🔍 Attack Log Analyzer</h2>
+
+        <!-- Filter Form -->
+        <form method="POST" action="" class="row g-3 mb-4" id="filterForm">
+            <div class="col-md-3">
+                <input type="text" name="ip" id="ip" class="form-control" placeholder="Filter by IP Address">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="date" id="date" class="form-control" placeholder="Filter by Date (YYYY-MM-DD)">
+            </div>
+            <div class="col-md-3">
+                <select name="prediction" id="prediction" class="form-select">
+                    <option value="">All Types</option>
+                    <option value="0">Normal</option>
+                    <option value="1">Intrusion</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-outline-primary w-100">🔍 Filter</button>
+                <button type="submit" name="export" value="1" class="btn btn-outline-success">⬇️ CSV</button>
+                <button type="submit" name="export_excel" value="1" class="btn btn-outline-warning">📊 Excel</button>
+            </div>
+        </form>
+
+        
+        <!-- Results Table -->
+        {% if table %}
+        <div class="table-responsive">
+            <table id="logTable" class="table table-striped table-bordered">
+                {{ table | safe }}
+            </table>
+        </div>
+
+        {% else %}
+        <div class="alert alert-info mt-4 text-center">⚠️ No log data available to display.</div>
+        {% endif %}
+
+        <p></p>
+
+          <!-- Pie Chart -->
+          <div class="text-center">
+            <img src="{{ url_for('static', filename='pie_chart.png') }}" class="img-fluid mb-4" style="max-width: 300px;" alt="Pie Chart">
+        </div>
+
+        <!-- Navigation -->
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-secondary">⬅️ Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<!-- JS Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTable + Animation Script -->
+<script>
+    $(document).ready(function () {
+        $('#logTable').DataTable();
+
+        $('#filterForm').on('submit', function () {
+            $(this).addClass('fade-out');
+        });
+    });
+</script>
+
+</body>
+</html> 

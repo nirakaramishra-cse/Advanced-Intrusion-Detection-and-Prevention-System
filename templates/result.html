@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Results</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container py-5">
+        <div class="card p-4 shadow rounded-4 bg-white">
+            <h2 class="text-center text-success mb-4">📊 Analysis Result</h2>
+
+            <!-- Pie Chart -->
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='pie_chart.png') }}" class="img-fluid mb-4" style="max-width: 300px;" alt="Pie Chart">
+            </div>
+
+            <!-- Prediction Stats -->
+            <div class="mb-4">
+                <h4>📌 Prediction Summary</h4>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ✅ Normal
+                        <span class="badge bg-success rounded-pill">{{ stats[(0,)] }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        🚨 Intrusions Detected
+                        <span class="badge bg-danger rounded-pill">{{ stats[(1,)] }}</span>
+                    </li>
+                </ul>                
+                <!-- <pre>{{ stats }}</pre> -->
+            </div>
+                
+            <!-- Blocked IPs (if any) -->
+            <h4>🚫 Blocked IPs Details</h4>
+            <div class="card mb-4 shadow-sm">
+                <!-- <div class="card-header bg-secondary text-white fw-semibold">
+                    🚫 Blocked IPs (Simulated)
+                </div> -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr class="text-center">
+                                <th>#</th>
+                                <th>IP Address</th>
+                                <th>Threat Type</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ip in blocked %}
+                            <tr>
+                                <th class="text-center">{{ loop.index }}</th>
+                                <td class="text-center">{{ ip }}</td>
+                                <td class="text-center">
+                                    {% if loop.index % 4 == 0 %}
+                                        DoS Attack
+                                    {% elif loop.index % 3 == 0 %}
+                                        Probe Attack
+                                    {% elif loop.index % 2 == 0 %}
+                                        U2R Attack   
+                                    {% else %}
+                                        R2L Attack
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {{ "2025-04-23 15:{:02}".format(loop.index + 10) }}
+                                </td>
+                                <td class="text-center">Simulated</td>
+                                <td class="text-center">
+                                    <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger px-3 py-1 fw-semibold">Blocked</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Predictions Table -->
+            <div class="mb-4">
+                <h4 class="fw-semibold text-dark mb-3">
+                    🔍 Sample Predictions Overview
+                </h4>
+                <div class="table-responsive p-3 bg-white border rounded-4 shadow-sm">
+                    {{ table | safe }}
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="text-center">
+                <a href="/" class="btn btn-outline-primary mt-4">⬅ Upload Another File</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
