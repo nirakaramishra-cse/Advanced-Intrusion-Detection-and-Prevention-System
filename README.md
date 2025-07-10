@@ -198,13 +198,16 @@ We welcome contributions!
 - Make your changes
 - Submit a pull request
 
+---
 
-## 📬 Contact
+## 🙋 About the Author
 
-- **Developer:**  Nirakara Mishra
-- **Email:**  [nirakaramishra.cse@gmail.com]
-- **GitHub:**  https://github.com/nirakaramishra-cse
-- **LinkedIn:**  https://www.linkedin.com/in/nirakaramishra-cse
+Created by **Nirakara Mishra**
+- 🎓 B.Tech in Computer Science & Engineering
+- 🎓 Specialization: Cybersecurity
+- 🌐 [Portfolio](https://nirakaramishra-cse.github.io/Portfolio)  
+- 🔗 [LinkedIn](https://www.linkedin.com/in/nirakaramishra-cse)  
+- 🔗 [GitHub](https://github.com/nirakaramishra-cse)   
 
 
 
